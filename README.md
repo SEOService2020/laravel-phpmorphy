@@ -8,7 +8,7 @@
 
 ```laravel-phpmorphy``` is a Laravel wrapper for phpMorphy library with PHP7 support.
 
-phpMorphy is a morphological analyzer library for Russian, English, German and Ukrainian languages.
+phpMorphy is a morphological analyzer library for Russian, Ukrainian, English and German languages.
 
 **Make sure you have appropriate dictionaries for languages you wish to use. PhpMorphy library may not contain all neeed dictionaries!**
 
