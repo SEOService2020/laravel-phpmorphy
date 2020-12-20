@@ -20,10 +20,14 @@ Run the following command from your terminal:
 composer require seoservice2020/laravel-phpmorphy
 ```
 
-or add this to require section in your composer.json file:
+Or add this to require section in your composer.json file:
 
-```bash
-"seoservice2020/laravel-phpmorphy": "~1.0"
+```json
+{
+    "require": {
+        "seoservice2020/laravel-phpmorphy": "~1.0"
+    }
+}
 ```
 
 then run ```composer update```
