@@ -1,9 +1,16 @@
 # laravel-phpmorphy
 
+[![Latest Stable Version](https://poser.pugx.org/seoservice2020/laravel-phpmorphy/version)](https://packagist.org/packages/seoservice2020/laravel-phpmorphy)
+[![Total Downloads](https://poser.pugx.org/seoservice2020/laravel-phpmorphy/downloads)](https://packagist.org/packages/seoservice2020/laravel-phpmorphy)
+[![tests](https://github.com/seoservice2020/laravel-phpmorphy/workflows/tests/badge.svg)](https://github.com/seoservice2020/laravel-phpmorphy/actions)
+[![codecov](https://codecov.io/gh/seoservice2020/laravel-phpmorphy/branch/master/graph/badge.svg)](https://codecov.io/gh/seoservice2020/laravel-phpmorphy)
+[![License](https://poser.pugx.org/seoservice2020/laravel-phpmorphy/license)](https://packagist.org/packages/seoservice2020/laravel-phpmorphy)
+
 ```laravel-phpmorphy``` is a Laravel wrapper for phpMorphy library with PHP7 support.
 
 phpMorphy is a morphological analyzer library for Russian, English, German and Ukrainian languages.
-**Make sure you have appropriate dictionaries for languages you wish to use**
+
+**Make sure you have appropriate dictionaries for languages you wish to use. PhpMorphy library may not contain all neeed dictionaries!**
 
 ## Installation
 
@@ -60,7 +67,8 @@ echo $morphy->getPseudoRoot('FIGHTY');
 Or via Laravel Facade:
 
 ``` php
-Morphy::getPseudoRoot('БОЙЦОВЫЙ')
+use SEOService2020\Morphy\Facade\Morphy;
+Morphy::getPseudoRoot('БОЙЦОВЫЙ');
 ```
 
 ### Add facade support
