@@ -1,0 +1,43 @@
+{
+    "name": "seoservice2020/laravel-phpmorphy",
+    "description": "laravel-phpmorphy - Laravel wrapper for phpMorphy.",
+    "keywords": [
+        "laravel",
+        "phpMorphy",
+        "nlp"
+    ],
+    "homepage": "https://github.com/SEOService2020/laravel-phpmorphy",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sergey Pronin",
+            "email": "sergotail@mail.ru",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "seoservice2020/phpmorphy": "^2.0",
+        "illuminate/support": "^7.0|^8.0"
+    },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "SEOService2020\\Morphy\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SEOService2020\\Morphy\\MorphyServiceProvider"
+            ],
+            "aliases": {
+                "Morphy": "SEOService2020\\Morphy\\Facade\\Morphy"
+            }
+        }
+    }
+}
