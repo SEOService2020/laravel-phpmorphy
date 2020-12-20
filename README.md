@@ -20,7 +20,7 @@ Run the following command from your terminal:
 composer require seoservice2020/laravel-phpmorphy
 ```
 
-Or add this to require section in your composer.json file:
+Or add this to require section in your `composer.json` file:
 
 ```json
 {
