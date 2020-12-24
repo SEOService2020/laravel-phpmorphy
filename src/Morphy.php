@@ -55,24 +55,4 @@ class Morphy extends phpMorphy
 
         parent::__construct($this->dictsPath, $this->language, $this->options);
     }
-
-    public function morphy(): self
-    {
-        return $this;
-    }
-
-    public function withLanguage(string $language): self
-    {
-        return new self($language, $this->options, $this->dictsPath);
-    }
-
-    public function withOptions(array $options): self
-    {
-        return new self($this->language, $options, $this->dictsPath);
-    }
-
-    public function withDicts(?string $dictsPath = null): self
-    {
-        return new self($this->language, $this->options, $dictsPath);
-    }
 }

@@ -3,9 +3,10 @@
 namespace SEOService2020\Morphy;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 
-class MorphyServiceProvider extends ServiceProvider
+class MorphyServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Bootstrap the application services.
@@ -31,11 +32,21 @@ class MorphyServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'morphy');
 
         $this->app->bind('morphy', function () {
-            return new Morphy(
-                config('morphy.language'),
-                config('morphy.options'),
-                config('morphy.dicts_path')
+            return new MorphyManager(
+                Factory::fromArray(
+                    config('morphy.morphies'),
+                    config('morphy.default_options')
+                )
             );
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides() {
+        return ['morphy'];
     }
 }
