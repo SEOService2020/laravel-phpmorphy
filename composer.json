@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "seoservice2020/phpmorphy": "^2.1",
+        "seoservice2020/phpmorphy": "^2.2",
         "illuminate/support": "^7.0|^8.0"
     },
     "prefer-stable": true,
