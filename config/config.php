@@ -3,9 +3,9 @@
 return [
     'common_options' => [
         'storage' => phpMorphy::STORAGE_FILE,
-		'predict_by_suffix' => true,
-		'predict_by_db' => true,
-		'graminfo_as_text' => true,
+        'predict_by_suffix' => true,
+        'predict_by_db' => true,
+        'graminfo_as_text' => true,
     ],
 
     'morphies' => [

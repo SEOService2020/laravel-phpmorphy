@@ -2,6 +2,7 @@
 
 namespace SEOService2020\Morphy;
 
+use ReflectionMethod;
 use BadMethodCallException;
 use InvalidArgumentException;
 use phpMorphy;
@@ -9,6 +10,8 @@ use phpMorphy;
 
 class MorphyManager
 {
+    use PreprocessWord;
+
     protected $morphies;
 
     public function __construct(array $morphies)
@@ -37,6 +40,10 @@ class MorphyManager
 
     public function __call($name, $arguments)
     {
+        if ((new ReflectionMethod(phpMorphy::class, $name))->isStatic()) {
+            return self::__callStatic($name, $arguments);
+        }
+
         if (count($arguments) < 1) {
             throw new BadMethodCallException(
                 "Too few arguments provided: at least morphy name expected"
@@ -48,7 +55,12 @@ class MorphyManager
             throw new InvalidArgumentException("Unknown morphy: $morphyName");
         }
 
-        return call_user_func_array([$this->morphies[$morphyName], $name], $arguments);
+        $morphy = $this->morphies[$morphyName];
+        if (self::needWordPreprocess($name) && !empty($arguments)) {
+            $arguments[0] = self::preprocessedWord($arguments[0], $morphy);
+        }
+
+        return call_user_func_array([$morphy, $name], $arguments);
     }
 
     public static function __callStatic($name, $arguments)
