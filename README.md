@@ -10,8 +10,6 @@
 
 phpMorphy is a morphological analyzer library for Russian, Ukrainian, English and German languages.
 
-**Make sure you have appropriate dictionaries for languages you wish to use. PhpMorphy library may not contain all neeed dictionaries!**
-
 ## Installation
 
 Run the following command from your terminal:
@@ -25,7 +23,7 @@ Or add this to require section in your `composer.json` file:
 ```json
 {
     "require": {
-        "seoservice2020/laravel-phpmorphy": "~1.0"
+        "seoservice2020/laravel-phpmorphy": "~2.0"
     }
 }
 ```
@@ -44,36 +42,63 @@ This is the contents of the published file:
 
 ```php
 return [
-    // phpMorphy language
-    'language' => SEOService2020\Morphy\Morphy::russianLang,
-    // phpMorphy options
-    'options' => [
+    'common_options' => [
         'storage' => phpMorphy::STORAGE_FILE,
         'predict_by_suffix' => true,
         'predict_by_db' => true,
         'graminfo_as_text' => true,
     ],
-    // when null, default dicts wil be loaded
-    'dicts_path' => null,
+
+    'morphies' => [
+        [
+            // by this name specific morphy can be accessed through Morphy::morphy method
+            // it may be any string
+            'name' => SEOService2020\Morphy\Morphy::russianLang,
+            'language' => SEOService2020\Morphy\Morphy::russianLang,
+            // if no options key or null value specified, default options will be used
+            // to use common options from this config, specify []
+            'options' => [],
+            // when null specified, default morphy dicts path will be used
+            'dicts_path' => null,
+        ],
+    ],
 ];
 ```
 
 ## Usage
+
+Wrapper automatically prepares input word for phpMorphy: it applies `trim` to word and converts it to uppercase or lowercase, depending on the dictionary options.
 
 Using the wrapper directly:
 
 ``` php
 use SEOService2020\Morphy\Morphy;
 $morphy = new Morphy(Morphy::englishLang);
-echo $morphy->getPseudoRoot('FIGHTY');
+echo $morphy->getPseudoRoot('fighty');
 ```
 
 Or via Laravel Facade:
 
 ``` php
-use SEOService2020\Morphy\Facade\Morphy;
-Morphy::getPseudoRoot('БОЙЦОВЫЙ');
+use SEOService2020\Morphy\Facade\Morphy as Morphies;
+// first parameter is the name of morphy in config
+Morphies::getPseudoRoot('ru', 'Бойцовый');
+
+// get morphy and call methods in regular manner
+Morphies::morphy('ru')->lemmatize('   бойцовый');  // word will be trimmed
+
+// get all morphies, returns array like ['name' => Morphy]
+Morphies::morphies();
+
+// get all morphies with pecific locale, returns array like ['name' => Morphy]
+Morphies::morphies(Morphy::russianLang);
+
+// you can call phpMorphy static methods as well
+Morphies::getDefaultDictsDir();
 ```
+
+Note:
+> You can access morphy properties only directly from morphy object, not facade.
 
 ### Add facade support
 
