@@ -90,7 +90,7 @@ Morphies::morphy('ru')->lemmatize('   бойцовый');  // word will be trimm
 // get all morphies, returns array like ['name' => Morphy]
 Morphies::morphies();
 
-// get all morphies with pecific locale, returns array like ['name' => Morphy]
+// get all morphies with specific locale, returns array like ['name' => Morphy]
 Morphies::morphies(Morphy::russianLang);
 
 // you can call phpMorphy static methods as well
