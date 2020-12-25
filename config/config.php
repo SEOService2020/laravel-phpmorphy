@@ -9,13 +9,13 @@ return [
     ],
 
     'morphies' => [
-        // order determines search predecence when facade called directly
         [
-            // by this name specific morphy can be accessed thorough Morphy::morphy method
-            'name' => 'ru',
+            // by this name specific morphy can be accessed through Morphy::morphy method
+            // it may be any string
+            'name' => SEOService2020\Morphy\Morphy::russianLang,
             'language' => SEOService2020\Morphy\Morphy::russianLang,
-            // if [] specified, default options will be used
-            // to use common options, specify null
+            // if no options key or null value specified, default options will be used
+            // to use common options from this config, specify []
             'options' => [],
             // when null specified, default morphy dicts path will be used
             'dicts_path' => null,

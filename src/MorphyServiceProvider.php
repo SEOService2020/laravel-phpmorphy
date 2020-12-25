@@ -35,7 +35,7 @@ class MorphyServiceProvider extends ServiceProvider implements DeferrableProvide
             return new MorphyManager(
                 Factory::fromArray(
                     config('morphy.morphies'),
-                    config('morphy.default_options')
+                    config('morphy.common_options')
                 )
             );
         });
