@@ -30,7 +30,6 @@ trait PreprocessWord
             'castFormByAncode',
             'castFormByGramInfo',
             'castFormByPattern',
-            'getAncode',
         ]);
     }
 }
