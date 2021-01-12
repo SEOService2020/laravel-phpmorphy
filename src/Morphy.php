@@ -3,11 +3,15 @@
 namespace SEOService2020\Morphy;
 
 use InvalidArgumentException;
+
 use phpMorphy;
+use phpMorphy_GrammemsProvider_GrammemsProviderInterface;
 
 
 class Morphy extends phpMorphy
 {
+    use PreprocessWord;
+
     public const russianLang = 'ru_RU';
     public const englishLang = 'en_EN';
     public const ukrainianLang = 'uk_UA';
@@ -54,5 +58,101 @@ class Morphy extends phpMorphy
         $this->dictsPath = $dictsPath;
 
         parent::__construct($this->dictsPath, $this->language, $this->options);
+    }
+
+    public function findWord($word, $type = self::NORMAL) {
+        return parent::findWord(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getBaseForm($word, $type = self::NORMAL) {
+        return parent::getBaseForm(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getAllForms($word, $type = self::NORMAL) {
+        return parent::getAllForms(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getPseudoRoot($word, $type = self::NORMAL) {
+        return parent::getPseudoRoot(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getPartOfSpeech($word, $type = self::NORMAL) {
+        return parent::getPartOfSpeech(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getAllFormsWithAncodes($word, $type = self::NORMAL) {
+        return parent::getAllFormsWithAncodes(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getAllFormsWithGramInfo($word, $asText = true, $type = self::NORMAL) {
+        return parent::getAllFormsWithGramInfo(
+            self::preprocessedWord($word, $this), $asText, $type
+        );
+    }
+
+    public function getAncode($word, $type = self::NORMAL) {
+        return parent::getAncode(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getGramInfo($word, $type = self::NORMAL) {
+        return parent::getGramInfo(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function getGramInfoMergeForms($word, $type = self::NORMAL) {
+        return parent::getGramInfoMergeForms(self::preprocessedWord($word, $this), $type);
+    }
+
+    public function castFormByAncode(
+        $word,
+        $ancode,
+        $commonAncode = null,
+        $returnOnlyWord = false,
+        $callback = null,
+        $type = self::NORMAL
+    ) {
+        return parent::castFormByAncode(
+            self::preprocessedWord($word, $this),
+            self::preprocessedWord($ancode, $this),
+            self::preprocessedWord($commonAncode, $this),
+            $returnOnlyWord,
+            $callback,
+            $type
+        );
+    }
+
+    public function castFormByGramInfo(
+        $word,
+        $partOfSpeech,
+        $grammems,
+        $returnOnlyWord = false,
+        $callback = null,
+        $type = self::NORMAL
+    ) {
+        return parent::castFormByGramInfo(
+            self::preprocessedWord($word, $this),
+            self::preprocessedWord($partOfSpeech, $this),
+            $grammems,
+            $returnOnlyWord,
+            $callback,
+            $type
+        );
+    }
+
+    public function castFormByPattern(
+        $word,
+        $patternWord,
+        phpMorphy_GrammemsProvider_GrammemsProviderInterface $grammemsProvider = null,
+        $returnOnlyWord = false,
+        $callback = null,
+        $type = self::NORMAL
+    ) {
+        return parent::castFormByPattern(
+            self::preprocessedWord($word, $this),
+            self::preprocessedWord($patternWord, $this),
+            $grammemsProvider,
+            $returnOnlyWord,
+            $callback,
+            $type
+        );
     }
 }

@@ -12,7 +12,7 @@ trait PreprocessWord
         return $morphy->isInUpperCase() ? Str::upper(trim($word)) : Str::lower(trim($word));
     }
 
-    protected static function needWordPreprocess(string $methodName): bool
+    public static function takesWordParameter(string $methodName): bool
     {
         return in_array($methodName, [
             'findWord',

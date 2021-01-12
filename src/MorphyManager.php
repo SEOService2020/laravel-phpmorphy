@@ -5,13 +5,12 @@ namespace SEOService2020\Morphy;
 use ReflectionMethod;
 use BadMethodCallException;
 use InvalidArgumentException;
+
 use phpMorphy;
 
 
 class MorphyManager
 {
-    use PreprocessWord;
-
     protected $morphies;
 
     public function __construct(array $morphies)
@@ -55,12 +54,7 @@ class MorphyManager
             throw new InvalidArgumentException("Unknown morphy: $morphyName");
         }
 
-        $morphy = $this->morphies[$morphyName];
-        if (self::needWordPreprocess($name) && !empty($arguments)) {
-            $arguments[0] = self::preprocessedWord($arguments[0], $morphy);
-        }
-
-        return call_user_func_array([$morphy, $name], $arguments);
+        return call_user_func_array([$this->morphies[$morphyName], $name], $arguments);
     }
 
     public static function __callStatic($name, $arguments)
