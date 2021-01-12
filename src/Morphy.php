@@ -24,6 +24,7 @@ class Morphy extends phpMorphy
         self::germanLang,
     ];
 
+    protected $name;
     protected $language;
     protected $options;
     protected $dictsPath;
@@ -49,15 +50,21 @@ class Morphy extends phpMorphy
     }
 
     public function __construct(
+        string $name,
         string $language = self::russianLang,
         ?array $options = null,
         ?string $dictsPath = null
     ) {
+        $this->name = $name;
         $this->language = $this->checkedLanguage($language);
         $this->options = $this->checkedOptions($options);
         $this->dictsPath = $dictsPath;
 
         parent::__construct($this->dictsPath, $this->language, $this->options);
+    }
+
+    public function name(): string {
+        return $this->name;
     }
 
     public function findWord($word, $type = self::NORMAL) {

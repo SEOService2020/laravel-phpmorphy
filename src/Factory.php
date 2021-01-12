@@ -38,13 +38,19 @@ class Factory
         $dictsPath = ($dictsPath === null || $dictsStorage !== 'storage') ?:
             Storage::path($dictsPath);
 
-        return new Morphy($config['language'], $options, $dictsPath);
+        return new Morphy($config['name'], $config['language'], $options, $dictsPath);
     }
 
     public static function fromArray(array $configs, ?array $commonOptions = null): array
     {
         $morphies = [];
         foreach ($configs as $config) {
+            if (array_key_exists($config['name'], $morphies)) {
+                throw new InvalidArgumentException(
+                    "Duplicate morphy name: {$config['name']}"
+                );
+            }
+
             $morphies[$config['name']] = self::makeMorphy($config, $commonOptions);
         }
         return $morphies;
