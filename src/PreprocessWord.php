@@ -7,8 +7,12 @@ use Illuminate\Support\Str;
 
 trait PreprocessWord
 {
-    protected static function preprocessedWord(string $word, Morphy $morphy): string
+    protected static function preprocessedWord(?string $word, Morphy $morphy): ?string
     {
+        if ($word === null) {
+            return null;
+        }
+
         return $morphy->isInUpperCase() ? Str::upper(trim($word)) : Str::lower(trim($word));
     }
 
