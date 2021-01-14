@@ -2,15 +2,17 @@
 
 namespace SEOService2020\Morphy;
 
-use ReflectionMethod;
 use BadMethodCallException;
 use InvalidArgumentException;
 
+use SEOService2020\Morphy\Traits\MorphyMethodsInfo;
 use phpMorphy;
 
 
 class MorphyManager
 {
+    use MorphyMethodsInfo;
+
     protected $morphies;
 
     public function __construct(array $morphies)
@@ -39,7 +41,7 @@ class MorphyManager
 
     public function __call($name, $arguments)
     {
-        if ((new ReflectionMethod(phpMorphy::class, $name))->isStatic()) {
+        if (MorphyMethodsInfo::isStatic($name)) {
             return self::__callStatic($name, $arguments);
         }
 

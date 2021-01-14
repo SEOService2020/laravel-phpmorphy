@@ -1,19 +1,17 @@
 <?php
 
-namespace SEOService2020\Morphy;
+namespace SEOService2020\Morphy\Traits;
 
-use Illuminate\Support\Str;
+use ReflectionMethod;
+
+use phpMorphy;
 
 
-trait PreprocessWord
+trait MorphyMethodsInfo
 {
-    protected static function preprocessedWord(?string $word, Morphy $morphy): ?string
+    public static function isStatic(string $methodName): bool
     {
-        if ($word === null) {
-            return null;
-        }
-
-        return $morphy->isInUpperCase() ? Str::upper(trim($word)) : Str::lower(trim($word));
+        return (new ReflectionMethod(phpMorphy::class, $methodName))->isStatic();
     }
 
     public static function takesWordParameter(string $methodName): bool

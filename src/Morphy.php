@@ -4,6 +4,7 @@ namespace SEOService2020\Morphy;
 
 use InvalidArgumentException;
 
+use SEOService2020\Morphy\Traits\PreprocessWord;
 use phpMorphy;
 use phpMorphy_GrammemsProvider_GrammemsProviderInterface;
 
@@ -68,45 +69,45 @@ class Morphy extends phpMorphy
     }
 
     public function findWord($word, $type = self::NORMAL) {
-        return parent::findWord(self::preprocessedWord($word, $this), $type);
+        return parent::findWord($this->preprocessedWord($word), $type);
     }
 
     public function getBaseForm($word, $type = self::NORMAL) {
-        return parent::getBaseForm(self::preprocessedWord($word, $this), $type);
+        return parent::getBaseForm($this->preprocessedWord($word), $type);
     }
 
     public function getAllForms($word, $type = self::NORMAL) {
-        return parent::getAllForms(self::preprocessedWord($word, $this), $type);
+        return parent::getAllForms($this->preprocessedWord($word), $type);
     }
 
     public function getPseudoRoot($word, $type = self::NORMAL) {
-        return parent::getPseudoRoot(self::preprocessedWord($word, $this), $type);
+        return parent::getPseudoRoot($this->preprocessedWord($word), $type);
     }
 
     public function getPartOfSpeech($word, $type = self::NORMAL) {
-        return parent::getPartOfSpeech(self::preprocessedWord($word, $this), $type);
+        return parent::getPartOfSpeech($this->preprocessedWord($word), $type);
     }
 
     public function getAllFormsWithAncodes($word, $type = self::NORMAL) {
-        return parent::getAllFormsWithAncodes(self::preprocessedWord($word, $this), $type);
+        return parent::getAllFormsWithAncodes($this->preprocessedWord($word), $type);
     }
 
     public function getAllFormsWithGramInfo($word, $asText = true, $type = self::NORMAL) {
         return parent::getAllFormsWithGramInfo(
-            self::preprocessedWord($word, $this), $asText, $type
+            $this->preprocessedWord($word), $asText, $type
         );
     }
 
     public function getAncode($word, $type = self::NORMAL) {
-        return parent::getAncode(self::preprocessedWord($word, $this), $type);
+        return parent::getAncode($this->preprocessedWord($word), $type);
     }
 
     public function getGramInfo($word, $type = self::NORMAL) {
-        return parent::getGramInfo(self::preprocessedWord($word, $this), $type);
+        return parent::getGramInfo($this->preprocessedWord($word), $type);
     }
 
     public function getGramInfoMergeForms($word, $type = self::NORMAL) {
-        return parent::getGramInfoMergeForms(self::preprocessedWord($word, $this), $type);
+        return parent::getGramInfoMergeForms($this->preprocessedWord($word), $type);
     }
 
     public function castFormByAncode(
@@ -118,9 +119,9 @@ class Morphy extends phpMorphy
         $type = self::NORMAL
     ) {
         return parent::castFormByAncode(
-            self::preprocessedWord($word, $this),
-            self::preprocessedWord($ancode, $this),
-            self::preprocessedWord($commonAncode, $this),
+            $this->preprocessedWord($word),
+            $this->preprocessedWord($ancode),
+            $this->preprocessedWord($commonAncode),
             $returnOnlyWord,
             $callback,
             $type
@@ -136,8 +137,8 @@ class Morphy extends phpMorphy
         $type = self::NORMAL
     ) {
         return parent::castFormByGramInfo(
-            self::preprocessedWord($word, $this),
-            self::preprocessedWord($partOfSpeech, $this),
+            $this->preprocessedWord($word),
+            $this->preprocessedWord($partOfSpeech),
             $grammems,
             $returnOnlyWord,
             $callback,
@@ -154,8 +155,8 @@ class Morphy extends phpMorphy
         $type = self::NORMAL
     ) {
         return parent::castFormByPattern(
-            self::preprocessedWord($word, $this),
-            self::preprocessedWord($patternWord, $this),
+            $this->preprocessedWord($word),
+            $this->preprocessedWord($patternWord),
             $grammemsProvider,
             $returnOnlyWord,
             $callback,
