@@ -23,7 +23,7 @@ Or add this to require section in your `composer.json` file:
 ```json
 {
     "require": {
-        "seoservice2020/laravel-phpmorphy": "~2.0"
+        "seoservice2020/laravel-phpmorphy": "~2.2"
     }
 }
 ```
